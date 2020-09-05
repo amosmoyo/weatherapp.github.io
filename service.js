@@ -1,8 +1,11 @@
+const casheData = [
+  "./", "./src/style.css", "./images/beautiful-young-girl-yellow-raincoat-600w-1276224355.jpg", "./src/index.js"
+]
 self.addEventListener('install', (e) => {
   console.log('install');
   e.waitUntil(
     caches.open('static').then((cache) => {
-      return cache.addAll(["./", "./src/style.css", "./images/beautiful-young-girl-yellow-raincoat-600w-1276224355.jpg", "./src/index.js"])
+      return cache.addAll(casheData);
     })
   )
 })
@@ -10,5 +13,7 @@ self.addEventListener('install', (e) => {
 self.skipWaiting();
 
 self.addEventListener('fetch', (e) => {
-  const url = new URL(e.request.url);
+  e.respondWith(caches.match(e.request).then((res) => {
+    return res || fetch(e.request)
+  }))
 });
