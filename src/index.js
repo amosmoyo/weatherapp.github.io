@@ -88,13 +88,6 @@ const getWeather = (latitude, longitude) => {
     weather.innerText = responceData.weather[0].description;
     const hilow = document.querySelector('.hi-low');
     hilow.innerText = `${Math.round(responceData.main.temp_min)}°c / ${Math.round(responceData.main.temp_max)}°c`;
-    console.log(now.toLocaleTimeString());
-    let time;
-    setInterval(() => {
-      time = now.toLocaleTimeString();
-    }, 1000);
-
-    
   })
 }
 
