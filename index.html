@@ -1,63 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="smArtUI Weather App." />
+    <meta name="theme-color" content="#009578" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;display=swap"
+      rel="stylesheet"
+      async
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+      async
+    />
+    <link rel="stylesheet" type="text/css" href="src/style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="images/weather.png" />
+    <link rel="icon" type="image/png" href="images/weather.png" />
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script> -->
+    <title>smArtUI</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="smArtUI Weather App." />
-  <meta name="theme-color" content="#009578" />
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;display=swap" rel="stylesheet" async />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" async />
-  <link rel="stylesheet" type="text/css" href="src/style.css" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="images/weather.png" />
-  <link rel="icon" type="image/png" href="images/weather.png">
- <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script> -->
-  <title>smArtUI</title>
-</head>
-
-<body>
-  <div class="container">
-    <header>
-      <h2><span>smArtUI Weather</span></h2>
-      <br>
-      <input type="text" autocomplete="off" id="search" placeholder="search for you city..." />
-    </header>
-    <main>
-      <div class="sub-main">
-        <p id="time"></p>
-        <div class="current">
-          <div class="temp">15<span>°c</span></div>
-          <div class="weather">Sunny</div>
-          <div class="hi-low">13°c / 16°c</div>
-        </div>
+  <body>
+    <div class="container">
+      <header>
+        <!--<button id="btn">Install</button>-->
+        <h2><span>smArtUI Weather</span></h2>
         <br />
-        <section class="location">
-          <div class="city" style="padding-top: 5px">Nairobi, KE</div>
-          <div class="date">Monday 18 June 2020</div>
+        <input
+          type="text"
+          autocomplete="off"
+          id="search"
+          placeholder="search for you city..."
+        />
+      </header>
+      <main>
+        <div class="sub-main">
+          <p id="time"></p>
+          <div class="current">
+            <div class="temp">15<span>°c</span></div>
+            <div class="weather">Sunny</div>
+            <div class="hi-low">13°c / 16°c</div>
+          </div>
           <br />
-        </section>
-        <br />
-      </div>
-    </main>
-  </div>
-  <script src="src/index.js"></script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("service.js")
-          .then((registration) => {
-            console.log("service worker registered");
-            console.log(registration);
-          })
-          .catch((error) => {
-            console.log("service worker registration failed");
-            console.log(error);
-          });
-      });
-    }
-  </script>
-</body>
+          <section class="location">
+            <div class="city" style="padding-top: 5px">Nairobi, KE</div>
+            <div class="date">Monday 18 June 2020</div>
+            <br />
+          </section>
+          <br />
+        </div>
+      </main>
+    </div>
+    <script src="src/index.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("service.js")
+            .then((registration) => {
+              console.log("service worker registered");
+              console.log(registration);
+            })
+            .catch((error) => {
+              console.log("service worker registration failed");
+              console.log(error);
+            });
+        });
+      }
 
+      const btn = document.getElementById("btn");
+
+      /*let differedPrompt;
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        differedPrompt = e;
+        btn.style.display = "block";
+      }); */
+    </script>
+  </body>
 </html>
