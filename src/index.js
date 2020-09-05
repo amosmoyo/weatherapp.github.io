@@ -29,8 +29,6 @@ function startTime() {
 }
 startTime();
 
-console.log(document.getElementById('time'));
-
 const search = document.getElementById('search');
 
 // CHECK IF BROWSER SUPPORTS GEOLOCATION
@@ -69,7 +67,6 @@ const dateData = (d) => {
 
 const getWeather = (latitude, longitude) => {
   let data = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`;;
-  console.log(data);
   
   fetch(data).then((response) => {
     if(!response.ok) {

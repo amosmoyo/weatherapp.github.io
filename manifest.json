@@ -7,9 +7,9 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "images/beautiful-young-girl-yellow-raincoat-600w-1276224355.jpg",
-      "sizes":"600x358",
-      "type": "image/jpg"
+      "src": "images/weather.png",
+      "sizes":"512x512",
+      "type": "image/png"
     }
   ]
 }
