@@ -1,7 +1,7 @@
 {
-  "name":"smArtUI",
+  "name":"smArtUI Weather Application",
   "short_name": "smArtUI",
-  "start_url": ".",
+  "start_url": "/index.html",
   "background_color": "#6dcdb1",
   "theme_color": "#009578",
   "display": "standalone",
@@ -11,5 +11,6 @@
       "sizes":"512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "orientation": "portrait"
 }
