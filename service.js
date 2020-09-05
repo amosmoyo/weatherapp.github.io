@@ -1,6 +1,6 @@
 const casheData = [
-  "./", "./src/style.css", "./images/beautiful-young-girl-yellow-raincoat-600w-1276224355.jpg",
-  "./images/weather.png", "./apms/jpg"
+  "./", "./index.html", "./src/style.css", "./images/beautiful-young-girl-yellow-raincoat-600w-1276224355.jpg",
+  "./images/weather.png", "./apms/jpg", "./src/index.js"
 ]
 self.addEventListener('install', (e) => {
   console.log('install');

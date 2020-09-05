@@ -129,5 +129,3 @@ const querySearch = (event) => {
 
 search.addEventListener('keypress', querySearch);
 
-console.log('amosmoyo');
-
