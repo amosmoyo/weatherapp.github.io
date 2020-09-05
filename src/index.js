@@ -3,18 +3,6 @@ const api = {
   base:'https://api.openweathermap.org/data/2.5'
 }
 
-if("serviceWorker" in navigator) {
-   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service.js').then((registration) => {
-      console.log('service worker registered');
-      console.log(registration);
-    }).catch((error) => {
-      console.log('service worker registration failed');
-      console.log(error);
-    })
-   })
-}
-
 const search = document.getElementById('search');
 
 // CHECK IF BROWSER SUPPORTS GEOLOCATION
@@ -52,7 +40,7 @@ const dateData = (d) => {
 // get weather data with latitude and longitude
 
 const getWeather = (latitude, longitude) => {
-  let data = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`;;
+  let data = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`;;
   console.log(data);
   
   fetch(data).then((response) => {
