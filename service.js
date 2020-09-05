@@ -11,5 +11,4 @@ self.skipWaiting();
 
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
-  console.log(`Intercepting the request for ${url}`);
-})
+});

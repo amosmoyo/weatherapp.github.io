@@ -3,6 +3,34 @@ const api = {
   base:'https://api.openweathermap.org/data/2.5'
 }
 
+function checkTime(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+
+function startTime() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  var ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12;
+  h = h ? h : 12; // the hour '0' should be '12'
+  // m = m < 10 ? '0'+m : m;
+  // add a zero in front of numbers<10
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('time').innerHTML = h + ":" + m + ":" + s + " " + ampm;
+  t = setTimeout(function() {
+    startTime()
+  }, 500);
+}
+startTime();
+
+console.log(document.getElementById('time'));
+
 const search = document.getElementById('search');
 
 // CHECK IF BROWSER SUPPORTS GEOLOCATION
@@ -60,9 +88,16 @@ const getWeather = (latitude, longitude) => {
     const temp = document.querySelector('.temp');
     temp.innerHTML = `${Math.round(responceData.main.temp)}<span>°c</span>`;
     const weather = document.querySelector('.weather');
-    weather.innerText = responceData.weather[0].main;
+    weather.innerText = responceData.weather[0].description;
     const hilow = document.querySelector('.hi-low');
     hilow.innerText = `${Math.round(responceData.main.temp_min)}°c / ${Math.round(responceData.main.temp_max)}°c`;
+    console.log(now.toLocaleTimeString());
+    let time;
+    setInterval(() => {
+      time = now.toLocaleTimeString();
+    }, 1000);
+
+    
   })
 }
 
@@ -87,7 +122,7 @@ const getWeatherData = (query) => {
     const temp = document.querySelector('.temp');
     temp.innerHTML = `${Math.round(responceData.main.temp)}<span>°c</span>`;
     const weather = document.querySelector('.weather');
-    weather.innerText = responceData.weather[0].main;
+    weather.innerText = responceData.weather[0].description;
     const hilow = document.querySelector('.hi-low');
     hilow.innerText = `${Math.round(responceData.main.temp_min)}°c / ${Math.round(responceData.main.temp_max)}°c`;
   })
