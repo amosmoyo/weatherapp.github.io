@@ -3,33 +3,21 @@ const api = {
   base:'https://api.openweathermap.org/data/2.5'
 }
 
-function checkTime(i) {
-  if (i < 10) {
-    i = "0" + i;
-  }
-  return i;
-}
-
-function startTime() {
-  var today = new Date();
-  var h = today.getHours();
-  var m = today.getMinutes();
-  var s = today.getSeconds();
-  var ampm = h >= 12 ? 'PM' : 'AM';
-  h = h % 12;
-  h = h ? h : 12; // the hour '0' should be '12'
-  // m = m < 10 ? '0'+m : m;
-  // add a zero in front of numbers<10
-  m = checkTime(m);
-  s = checkTime(s);
-  document.getElementById('time').innerHTML = h + ":" + m + ":" + s + " " + ampm;
-  t = setTimeout(function() {
-    startTime()
-  }, 500);
-}
-startTime();
-
+let city = document.querySelector('.city');
+let date = document.querySelector('.date');
+let temp = document.querySelector('.temp')
+let weather = document.querySelector('.weather');
+let hilow = document.querySelector('.hi-low');
 const search = document.getElementById('search');
+
+const populateData = (responceData) => {
+  city.innerText = `${responceData.name}, ${responceData.sys.country}`;
+  let now = new Date();
+  date.innerText = `${dateData(now)}`;
+  temp.innerHTML = `${Math.round(responceData.main.temp)}<span>°c</span>`;
+  weather.innerText = responceData.weather[0].description;
+  hilow.innerText = `${Math.round(responceData.main.temp_min)}°c / ${Math.round(responceData.main.temp_max)}°c`;
+}
 
 // CHECK IF BROWSER SUPPORTS GEOLOCATION
 if('geolocation' in navigator){
@@ -64,30 +52,24 @@ const dateData = (d) => {
 }
 
 // get weather data with latitude and longitude
-
 const getWeather = (latitude, longitude) => {
-  let data = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`;;
+  let data = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`;
   
   fetch(data).then((response) => {
     if(!response.ok) {
       throw Error(response.statusText);
     }
-
     return response;
   }).then((response) => response.json())
   .then((responceData) => {
-    console.log(responceData);
-    const city = document.querySelector('.city');
-    city.innerText = `${responceData.name}, ${responceData.sys.country}`;
-    const date = document.querySelector('.date');
-    let now = new Date();
-    date.innerText = `${dateData(now)}`;
-    const temp = document.querySelector('.temp');
-    temp.innerHTML = `${Math.round(responceData.main.temp)}<span>°c</span>`;
-    const weather = document.querySelector('.weather');
-    weather.innerText = responceData.weather[0].description;
-    const hilow = document.querySelector('.hi-low');
-    hilow.innerText = `${Math.round(responceData.main.temp_min)}°c / ${Math.round(responceData.main.temp_max)}°c`;
+    localStorage.setItem('responceData', JSON.stringify(responceData));
+    populateData(responceData);
+  })
+  .catch((err) => { 
+    const dataString = localStorage.getItem('responceData');
+    const responceData = JSON.parse(dataString);
+    populateData(responceData);
+    alert(`there is an error: ${err}`);
   })
 }
 
@@ -98,25 +80,19 @@ const getWeatherData = (query) => {
     if(!response.ok) {
       throw Error(response.statusText);
     }
-
     return response;
   })
   .then((response) => response.json())
   .then((responceData) => {
-    console.log(responceData);
-    const city = document.querySelector('.city');
-    city.innerText = `${responceData.name}, ${responceData.sys.country}`;
-    const date = document.querySelector('.date');
-    let now = new Date();
-    date.innerText = `${dateData(now)}`;
-    const temp = document.querySelector('.temp');
-    temp.innerHTML = `${Math.round(responceData.main.temp)}<span>°c</span>`;
-    const weather = document.querySelector('.weather');
-    weather.innerText = responceData.weather[0].description;
-    const hilow = document.querySelector('.hi-low');
-    hilow.innerText = `${Math.round(responceData.main.temp_min)}°c / ${Math.round(responceData.main.temp_max)}°c`;
+    localStorage.setItem('responceData', JSON.stringify(responceData));
+    populateData(responceData);
   })
-  .catch((err) => alert(`there is an error: ${err}`))
+  .catch((err) => { 
+    const dataString = localStorage.getItem('responceData');
+    const responceData = JSON.parse(dataString);
+    populateData(responceData);
+    alert(`there is an error: ${err}`);
+  })
 }
 
 const querySearch = (event) => {
@@ -128,4 +104,31 @@ const querySearch = (event) => {
 
 
 search.addEventListener('keypress', querySearch);
+
+// SET TIME FUNCTION
+function checkTime(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+
+function startTime() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  var ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12;
+  h = h ? h : 12; // the hour '0' should be '12'
+  // m = m < 10 ? '0'+m : m;
+  // add a zero in front of numbers<10
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('time').innerHTML = h + ":" + m + ":" + s + " " + ampm;
+  t = setTimeout(function() {
+    startTime()
+  }, 500);
+}
+startTime();
 
