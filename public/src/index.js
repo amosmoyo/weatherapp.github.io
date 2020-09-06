@@ -8,6 +8,7 @@ let date = document.querySelector('.date');
 let temp = document.querySelector('.temp')
 let weather = document.querySelector('.weather');
 let hilow = document.querySelector('.hi-low');
+const iconElement = document.querySelector(".weather-icon");
 const search = document.getElementById('search');
 
 const populateData = (responceData) => {
@@ -17,6 +18,7 @@ const populateData = (responceData) => {
   temp.innerHTML = `${Math.round(responceData.main.temp)}<span>°c</span>`;
   weather.innerText = responceData.weather[0].description;
   hilow.innerText = `${Math.round(responceData.main.temp_min)}°c / ${Math.round(responceData.main.temp_max)}°c`;
+  iconElement.innerHTML = `<img src="icons/${responceData.weather[0].icon}.png"/>`;
 }
 
 // CHECK IF BROWSER SUPPORTS GEOLOCATION
